@@ -1,0 +1,76 @@
+DML
+
+C - insert
+R - select
+U - update
+D - delete
+
+
+데이터 추가
+
+  - insert into 테이블명(필드명1, 필드명2, 필드명3, ....) values(데이터1, 데이터2, 데이터3, ....);
+ex) insert into sample(num, name ,reg) values(1, '김민준', to_date('2020-04-22'));
+** 위의 방법이 정석적인 방법이다
+
+  - insert into sample values(2, '강승현', '1987/09/22');
+>> 이렇게 필드명 순서대로 대응하여 전체를 대입하는 방법도 있다
+
+  - insert into sample(reg,num,name) values('1987-4-6',3,'문근영');
+>> 필드명 순서에 맞추어 value 값을 넣어주어야 한다
+
+  - insert into sample (num, reg) values(4, sysdate);
+>> 필드를 지정해서 값을 삽입할 수도 안할 수도 있다(sysdate 는 현재 시간)
+
+
+데이터 전체 검색
+  - select * from 테이블명;
+ex) select * from sample;
+
+====================================================================
+
+작업 저장 명령어
+commit
+
+작업 되돌리기 명령어
+rollback (마지막 commit 지점으로 되돌아가게 된다)
+
+====================================================================
+
+시퀀스(sequence) : Oracle에만 존재
+  - 어떤 중복되지 않는 번호를 붙일 때 사용하는 객체
+
+시퀀스 생성
+  - create sequence 시퀀스명 옵션1 옵션2 옵션3 ....;
+ex) create sequence test_seq;
+
+시퀀스 옵션
+  - start with 값 : 시작값 = (LAST_NUMBER)
+  - minvalue 최소값 = (MIN_VALUE)
+** start with 값은 minvalue보다 작을 수 없다
+  - maxvalue 최대값 = (MAX_VALUE)
+  - increment by 증감값 = (INCREMENT_BY)
+** 증감값은 어지간하면 건드리지 않는다(기본값 1 유지)
+  - cycle/nocycle = (CY)
+  - order / noorder = (OR)
+** CY 와 OR 의 기본값은 N 이다
+  - cache 값 / nocache = (CACHE_SIZE)
+** cache 값은 서버의 데이터 사용량이 많을 때 할당하고 아닐 경우 할당할 필요 없다
+
+
+ ??? - 캐쉬를 주지 않고 시작값은 1로 시작하고 최대값은 100까지이며 변수는 3씩 (sample_seq)
+>> create sequence sample_seq nocache maxvalue 100 increment by 3;
+
+
+시퀀스 조회
+  - select * from user_sequences;
+
+시퀀스 추출
+  - 시퀀스명.nextval
+ex) insert into sample (num, name, reg) values(sample_seq.nextval, '김민준', to_date);
+
+시퀀스 삭제
+  - drop sequence 시퀀스명;
+** 시퀀스를 삭제하더라도 기존의 데이터는 영향을 받지 않는다
+  단, 다음에 데이터를 삽입할 때 시퀀스가 없으니 문제가 발생할 가능성이 있다
+
+간격조절방법 : col 항목명 for 크기; (크기는 a10, a5와 같이 지정할 수도 있고, 글자에 따라 숫자를 정할 수 있다)
