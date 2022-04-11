@@ -1,0 +1,45 @@
+
+CRUD - 생성, 읽기, 갱신, 삭제
+         - create, read, update, delete
+
+DDL 에 대한 CRUD 명령문 사용 시
+Create - create
+Read - select
+Update - alter
+delete - drop
+
+계정 생성
+  - create user 아이디 identified by 비밀번호;
+ex) 아이디 : jsp 비밀번호 jsp
+  >> create user jsp identified by jsp;
+
+계정 최초 생성 직후 접속이 불가능한 것은 권한이 주어지지 않았기 때문이다
+
+** 단, Oracle Database 버전이 18c 인 경우 c## 을 앞에 적어주어야 한다
+ex) c## jsp
+
+
+유저 계정 권한 설정
+  - grant 권한1, 권한2, 권한3, .... to 아이디;
+ex) grant connect, resource to jsp;
+  - 권한 (connect와 resource 권한만 있어도 학습에 문제는 없다)
+  connect - 연결 권한
+  resource - 자원 접근 권한
+  dba - 관리자 권한
+
+** 18c 버전에서 일반 유저에게 table 에 데이터를 입력할 수 있는 권한이 주어지지 않는다
+  따라서, 별도의 권한을 함께 주어야 한다
+ex) alter user 계정명 default tablespace users quota unlimited on users;
+
+
+계정 비밀번호 수정
+  - alter user 아이디 identified by 바꿀비밀번호;
+ex) alter user jsp identified by oracle;
+
+
+계정 삭제
+  - drop user 아이디; (당연히 일반 계정으로 삭제는 불가능하다)
+** 추가적으로, Oracle database 의 경우 객체 관계형 데이터베이스이므로 데이터가 존재하는 id 삭제되지 않는다
+
+  - 데이터가 있는 계정 삭제 시
+  drop user 아이디 cascade;
