@@ -1,0 +1,61 @@
+
+CRUD - 생성, 읽기, 갱신, 삭제
+         - create, read, update, delete
+
+DDL 에 대한 CRUD 명령문 사용 시
+Create - create
+Read - select
+Update - alter
+delete - drop
+
+
+테이블(Table)
+  - 데이터를 저장하기 위한 틀
+  - 일반적으로 표를 생각하면 된다
+
+테이블의 데이터 타입
+  - 숫자 : 정수, 실수 (가장 많이 쓰는 자료형은 number)
+	- number : 총 28 자리
+	- number(정수값) - 자리수 지정
+	- number(정수값, 정수값) - 자리수 지정 + 소수점 자리수 지정
+  - 문자 : 문자, 문자열
+	- char(정수값) - 고정
+	- varchar2(정수값) - 가변
+	- 영문자 : 1 byte
+	- 한글 : 3 byte
+  - 날짜
+	- date
+	- 기본 형태 : yy/MM/dd hh:mm:ss
+
+================================================================
+
+Table 생성(DDL)
+  - create table 테이블명(컬럼명 컬럼타입, 컬럼명 컬럼타입, 컬럼명 컬럼타입...);
+** 컬럼타임 뒤에 제약조건을 넣을 수 있지만 현재 단계에서는 넘어가도록 한다
+ex) create table sample(num number, name varchar2(10), reg date);
+
+계정 내에 있는 테이블 목록 확인
+  - select * from tab;
+
+테이블 상세 확인
+  - desc 테이블명;
+ex) desc sample;
+
+테이블 복사
+  - create table 테이블명 as select * from 복사할테이블명;
+ex) create table sample1 as select * from sample;
+
+테이블 수정
+  - alter table 테이블명;
+	- 필드 수정 (column : field)
+	alter table 테이블명 modify(필드명 필드타입, ....);
+	ex) alter table sample1 modify(grade number(10));
+	- 필드 추가
+	alter table 테이블명 add(필드명 필드타입, ....);
+	ex) alter table sample1 add(grade char(10), bt nvarchar2(20));
+	- 필드 삭제
+	alter table 테이블명 drop(필드명, ....);
+	ex) alter table sample1 drop(grade, bt, reg);
+
+테이블 삭제
+  - drop table 테이블명;
