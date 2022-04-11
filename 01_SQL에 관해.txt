@@ -1,0 +1,31 @@
+SQL 명령문 (Run SQL Command Line)
+** 하나의 SQL 명령문은 하나의 결과밖에 보일 수 없다 
+
+
+관리자 계정 접속(CMD 창에서 실행)
+- sqlplus / as sysdba  
+
+접속 계정 확인
+  - show user
+  (자주자주 스스로의 계정 상태를 확인하는 것이 좋다)
+
+계정 접속
+  - conn 아이디/비밀번호
+  conn system/1
+  connect system
+  conn
+  >> 접속 방법은 다양하다
+
+HTTP리스너 포트 확인
+  - select dbms_xdb.gethttpport() from dual;
+ - ; 가 없으면 실행되지 않는다
+
+HTTP리스너 포트번호 변경
+  - exec dbms_xdb.sethttpport(포트번호);
+ - ; 가 없어도 문제 없이 실행된다
+
+DCL 의 명령문은 ;(세미콜론) 을 찍지 않는다
+DML, DDL 의 명령문은 ;(세미콜론) 을 찍는다
+  >> 구분이 어렵다면 명령문 전체에 ; 를 붙여도 문제가 없다
+
+** 주의점 : 로그인 시도 시 실패하면 계정 접속이 끊긴다
